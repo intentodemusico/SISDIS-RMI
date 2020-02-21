@@ -17,7 +17,9 @@ import java.util.Date;
  */
 public class Noticias {
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
-
+    public Noticias(){
+    
+    }
     public Noticias(int _id, String Nombre, String Titular, int AutorId, String Contenido) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         this._id = _id;
@@ -79,7 +81,7 @@ public class Noticias {
         return FechaCreado;
     }
 
-    private void setFechaCreado(Timestamp FechaCreado) {
+    public void setFechaCreado(Timestamp FechaCreado) {
         this.FechaCreado = FechaCreado;
     }
 

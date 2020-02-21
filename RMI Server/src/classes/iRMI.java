@@ -6,9 +6,9 @@ import org.bson.Document;
 
 public interface iRMI extends Remote {
 
-    public Noticias createNoticias() throws RemoteException;
+    public Noticias createNoticias(String nombre, String titular, String contenido) throws RemoteException;
 
-    public Usuarios createUsuarios() throws RemoteException;
+    public Usuarios createUsuarios(String nombre,int rol) throws RemoteException;
 
     public Document createDBObjectNotices(Noticias noticias);
 
