@@ -87,26 +87,6 @@ public class Main {
 
     }
 
-    private static Document createDBObjectNotices(Noticias noticias) {
-        Document docBuilder = new Document();
-
-        docBuilder.append("_id", noticias.getId());
-        docBuilder.append("Nombre", noticias.getNombre());
-        docBuilder.append("Titular", noticias.getTitular());
-        docBuilder.append("Fecha", noticias.getFecha());
-        docBuilder.append("AutorId", noticias.getAutorId());
-        docBuilder.append("Contenido", noticias.getContenido());
-        return docBuilder;
-    }
-
-    private static Document createDBObjectUsers(Usuarios usuarios) {
-        Document docBuilder = new Document();
-
-        docBuilder.append("UsuarioId", usuarios.getUsuarioId());
-        docBuilder.append("Nombre", usuarios.getNombre());
-        docBuilder.append("Role", usuarios.getRole());
-
-        return docBuilder;
-    }
+    
 
 }

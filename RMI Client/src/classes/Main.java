@@ -13,7 +13,10 @@ public class Main {
 	public static void main(String[] args) {
 		try {
 			iRMI service =  (iRMI) Naming.lookup("rmi://127.0.0.1:1802/service");			
-			System.out.println(service.sumar(4));			
+                        System.out.println("conecto");	
+                        System.out.println("elija tipo de usuario. ");
+                        
+                        
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
