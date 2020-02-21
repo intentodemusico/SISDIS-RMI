@@ -1,7 +1,9 @@
 package classes;
 
+import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import java.rmi.RemoteException;
@@ -84,14 +86,23 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public Noticias find() {
+
+    }
+
     @Override
     public Noticias removeNoticias() throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Noticias readNoticias() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void readNoticias() throws RemoteException {
+        FindIterable <Document> cursor = col.find();
+        
+         for (Document doc : cursor) {
+             System.out.println(doc.getString("Contenido")); 
+        }
+                
     }
 
 }

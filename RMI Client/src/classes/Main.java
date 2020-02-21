@@ -16,8 +16,6 @@ public class Main {
         try {
             iRMI service = (iRMI) Naming.lookup("rmi://127.0.0.1:1802/service");
             System.out.println("conecto");
-            System.out.println("elija tipo de usuario (0/1) ");
-            String tipoUsuario = myObj.nextLine();
 
             System.out.println("elija nombre de usuario (0/1) ");
             String nombreUsuario = myObj.nextLine();
@@ -28,7 +26,11 @@ public class Main {
                 opcion = myObj.nextLine();
                 switch (opcion) {
                     case "1":
-                        service.createNoticias();
+                        System.out.println("Ingrese titular");
+                        String titular = myObj.nextLine();
+                        System.out.println("Ingrese contenido");
+                        String contenido = myObj.nextLine();
+                        service.createNoticias(nombreUsuario, titular, contenido);
                         break;
 
                     case "2":
