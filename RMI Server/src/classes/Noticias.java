@@ -6,6 +6,9 @@
 package classes;
 
 import java.util.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -13,32 +16,43 @@ import java.util.Date;
  * @author oswal
  */
 public class Noticias {
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+
+    public Noticias(int _id, String Nombre, String Titular, int AutorId, String Contenido) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        this._id = _id;
+        this.Nombre = Nombre;
+        this.Titular = Titular;
+        this.AutorId = AutorId;
+        this.Contenido = Contenido;
+        setFechaCreado(timestamp);
+        setFechaEditado(timestamp);
+    }
+    
     private int _id;
     private String Nombre;
     private String Titular;
-
-    public void setId(int _id) {
-        this._id = _id;
-    }
+    private Timestamp FechaCreado;
+    private Timestamp FechaEditado;
+    private int AutorId;
+    private String Contenido;
 
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        setFechaEditado(timestamp);
     }
 
     public void setTitular(String Titular) {
         this.Titular = Titular;
-    }
-
-    public void setFecha(Date Fecha) {
-        this.Fecha = Fecha;
-    }
-
-    public void setAutorId(int AutorId) {
-        this.AutorId = AutorId;
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        setFechaEditado(timestamp);
     }
 
     public void setContenido(String Contenido) {
         this.Contenido = Contenido;
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        setFechaEditado(timestamp);
     }
 
     public int getId() {
@@ -53,10 +67,6 @@ public class Noticias {
         return Titular;
     }
 
-    public Date getFecha() {
-        return Fecha;
-    }
-
     public int getAutorId() {
         return AutorId;
     }
@@ -64,7 +74,21 @@ public class Noticias {
     public String getContenido() {
         return Contenido;
     }
-    private Date Fecha;
-    private int AutorId;
-    private String Contenido;
+
+    public Timestamp getFechaCreado() {
+        return FechaCreado;
+    }
+
+    private void setFechaCreado(Timestamp FechaCreado) {
+        this.FechaCreado = FechaCreado;
+    }
+
+    public Timestamp getFechaEditado() {
+        return FechaEditado;
+    }
+
+    private void setFechaEditado(Timestamp FechaEditado) {
+        this.FechaEditado = FechaEditado;
+    }
+
 }
