@@ -28,9 +28,26 @@ public class Main {
         try {
             //Conexión base de datos 
 
-            MongoClientURI uri = new MongoClientURI("mongodb://Admin:Informatica@rmi-p8iu2.mongodb.net/test?retryWrites=true&w=majority");
+            
+  /*          
+MongoClientURI uri = new MongoClientURI(
+    "mongodb://Admin:<Informatica>@rmi-shard-00-00-p8iu2.mongodb.net:27017,rmi-shard-00-01-p8iu2.mongodb.net:27017,rmi-shard-00-02-p8iu2.mongodb.net:27017/test?ssl=true&replicaSet=RMI-shard-0&authSource=admin&retryWrites=true&w=majority");
+
+MongoClient mongoClient = new MongoClient(uri);
+MongoDatabase database = mongoClient.getDatabase("test");
+*/
+
+ MongoClientURI uri = new MongoClientURI(
+    "mongodb+srv://Admin:Informatica@rmi-p8iu2.mongodb.net/test?retryWrites=true&w=majority");
+
+MongoClient mongoClient = new MongoClient(uri);
+DB database = mongoClient.getDB("RMI");
+
+  
+  /*
+            MongoClientURI uri = new MongoClientURI("mongodb://Admin:Informatica@rmi-shard-00-00-p8iu2.mongodb.net:27017,rmi-shard-00-01-p8iu2.mongodb.net:27017,rmi-shard-00-02-p8iu2.mongodb.net:27017/test?ssl=true&replicaSet=RMI-shard-0&authSource=admin&retryWrites=true&w=majority");
             MongoClient mongoClient = new MongoClient(uri);
-            DB database = mongoClient.getDB("RMI");
+            DB database = mongoClient.getDB("rmi");*/
             DBCollection col = database.getCollection("Noticias");
             Noticias noticias = createNoticias();
             DBObject doc = createDBObject(noticias);
@@ -38,7 +55,7 @@ public class Main {
             System.out.println(result.getUpsertedId());
             System.out.println(result.getN());
             System.out.println(result.isUpdateOfExisting());
-            System.out.println(result.getLastConcern());
+            //System.out.println(result.getLastConcern());
 
             iRMI service = new ImpRMI();
             LocateRegistry.createRegistry(1802);
