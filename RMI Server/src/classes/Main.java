@@ -7,6 +7,8 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.DBObject;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.WriteResult;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import static java.lang.String.format;
 
 import java.net.MalformedURLException;
@@ -17,6 +19,7 @@ import java.rmi.registry.LocateRegistry;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Set;
+import org.bson.Document;
 
 public class Main {
 
@@ -28,17 +31,13 @@ public class Main {
         try {
             //Conexión base de datos 
 
-            MongoClientURI uri = new MongoClientURI("mongodb://Admin:Informatica@rmi-p8iu2.mongodb.net/test?retryWrites=true&w=majority");
+            MongoClientURI uri = new MongoClientURI("mongodb+srv://Admin:Informatica@rmi-p8iu2.mongodb.net/test?retryWrites=true&w=majority");
             MongoClient mongoClient = new MongoClient(uri);
-            DB database = mongoClient.getDB("RMI");
-            DBCollection col = database.getCollection("Noticias");
+            MongoDatabase database = mongoClient.getDatabase("RMI");
+            MongoCollection col = database.getCollection("Noticias");
             Noticias noticias = createNoticias();
-            DBObject doc = createDBObject(noticias);
-            WriteResult result = col.insert(doc);
-            System.out.println(result.getUpsertedId());
-            System.out.println(result.getN());
-            System.out.println(result.isUpdateOfExisting());
-            System.out.println(result.getLastConcern());
+            col.insertOne(createDBObject(noticias));
+            System.out.println("Inserto");
 
             iRMI service = new ImpRMI();
             LocateRegistry.createRegistry(1802);
@@ -67,8 +66,8 @@ public class Main {
 
     }
 
-    private static DBObject createDBObject(Noticias noticias) {
-        BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();
+    private static Document createDBObject(Noticias noticias) {
+        Document docBuilder = new Document();
 
         docBuilder.append("_id", noticias.getId());
         docBuilder.append("Nombre", noticias.getNombre());
@@ -76,7 +75,7 @@ public class Main {
         docBuilder.append("Fecha", noticias.getFecha());
         docBuilder.append("AutorId", noticias.getAutorId());
         docBuilder.append("Contenido", noticias.getContenido());
-        return docBuilder.get();
+        return docBuilder;
     }
 
 }
