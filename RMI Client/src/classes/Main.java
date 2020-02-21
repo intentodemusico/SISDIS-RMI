@@ -24,12 +24,14 @@ public class Main {
                 System.out.println("Escoja su opción");
                 System.out.println("1. Crear \n2. Leer\n3. Actualizar\n4. Eliminar\n0. Salir");
                 opcion = myObj.nextLine();
+                int id;
+                String titular, contenido;
                 switch (opcion) {
                     case "1":
                         System.out.println("Ingrese titular");
-                        String titular = myObj.nextLine();
+                         titular = myObj.nextLine();
                         System.out.println("Ingrese contenido");
-                        String contenido = myObj.nextLine();
+                         contenido = myObj.nextLine();
                         service.createNoticias(nombreUsuario, titular, contenido);
                         break;
 
@@ -39,14 +41,16 @@ public class Main {
 
                     case "3":
                         System.out.println("Ingrese id");
-                        int id = Integer.parseInt(myObj.nextLine().trim());
+                        id = Integer.parseInt(myObj.nextLine().trim());
                         System.out.println("Ingrese contenido");
                         contenido = myObj.nextLine();
-                        service.updateNoticias(int id, String contenido);
+                        service.updateNoticias(id,  contenido);
                         break;
 
                     case "4":
-                        service.removeNoticias();
+                         System.out.println("Ingrese id");
+                         id = Integer.parseInt(myObj.nextLine().trim());
+                        service.removeNoticias(id);
                         break;
 
                     case "0":
