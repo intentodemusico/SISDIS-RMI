@@ -30,21 +30,6 @@ public class Main {
 
         try {
 
-            //Conexión base de datos 
-            MongoClientURI uri = new MongoClientURI("mongodb+srv://Admin:Informatica@rmi-p8iu2.mongodb.net/test?retryWrites=true&w=majority");
-            MongoClient mongoClient = new MongoClient(uri);
-
-            //Selección de DB
-            MongoDatabase database = mongoClient.getDatabase("RMI");
-            MongoCollection col = database.getCollection("Noticias");
-            MongoCollection col2 = database.getCollection("Usuarios");
-
-            //Agregar información Noticias
-            //Noticias noticias = createNoticias();
-            //Agregar información Usuarios
-            //Usuarios usuarios = createUsuarios();
-            
-
             //Servicio RMI
             iRMI service = new ImpRMI();
             LocateRegistry.createRegistry(1802);
@@ -58,9 +43,5 @@ public class Main {
         }
 
     }
-
- 
-
-    
 
 }
