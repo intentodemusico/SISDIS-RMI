@@ -43,8 +43,13 @@ public class Main {
 
                         break;
 
-                    case "5":
+                    case "0":
+                        System.out.println("Hasta luego");
+                        break;
 
+                    default:
+
+                        System.out.println("Opción inválida");
                         break;
                 }
             } while (opcion != "0");
