@@ -17,7 +17,8 @@ import org.bson.Document;
 
 public class ImpRMI extends UnicastRemoteObject implements iRMI {
 
-    protected ImpRMI() throws RemoteException {
+    
+    public ImpRMI() throws RemoteException {
     }
     MongoClientURI uri = new MongoClientURI("mongodb+srv://Admin:Informatica@rmi-p8iu2.mongodb.net/test?retryWrites=true&w=majority");
     MongoClient mongoClient = new MongoClient(uri);
