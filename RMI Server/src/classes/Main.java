@@ -40,14 +40,10 @@ public class Main {
             MongoCollection col2 = database.getCollection("Usuarios");
 
             //Agregar información Noticias
-            Noticias noticias = createNoticias();
-            col.insertOne(createDBObjectNotices(noticias));
-            System.out.println("Inserto Noticia");
-
+            //Noticias noticias = createNoticias();
             //Agregar información Usuarios
-            Usuarios usuarios = createUsuarios();
-            col2.insertOne(createDBObjectUsers(usuarios));
-            System.out.println("Inserto Usuario");
+            //Usuarios usuarios = createUsuarios();
+            
 
             //Servicio RMI
             iRMI service = new ImpRMI();

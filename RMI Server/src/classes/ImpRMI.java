@@ -1,5 +1,9 @@
 package classes;
 
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Timestamp;
@@ -13,6 +17,13 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
 
     protected ImpRMI() throws RemoteException {
     }
+    MongoClientURI uri = new MongoClientURI("mongodb+srv://Admin:Informatica@rmi-p8iu2.mongodb.net/test?retryWrites=true&w=majority");
+    MongoClient mongoClient = new MongoClient(uri);
+
+    //Selección de DB
+    MongoDatabase database = mongoClient.getDatabase("RMI");
+    MongoCollection col = database.getCollection("Noticias");
+    MongoCollection col2 = database.getCollection("Usuarios");
 
     private static final long serialVersionUID = 1L;
 
@@ -20,7 +31,7 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
      * @see classes.iRMI#sumar(int, int)
      */
     @Override
-    public Usuarios createUsuarios(String nombre,int rol) throws RemoteException {
+    public Usuarios createUsuarios(String nombre, int rol) throws RemoteException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Usuarios u = new Usuarios();
         u.setNombre(nombre);
@@ -30,7 +41,7 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
     }
 
     @Override
-    public Noticias createNoticias(String nombre, String titular, String contenido ) throws RemoteException {
+    public Noticias createNoticias(String nombre, String titular, String contenido) throws RemoteException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Noticias u = new Noticias();
         //u.setId(1);
@@ -40,8 +51,9 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
         return u;
 
     }
+
     @Override
-    public Document createDBObjectNotices(Noticias noticias) {
+    public void createDBObjectNotices(Noticias noticias) {
         Document docBuilder = new Document();
 
         docBuilder.append("_id", noticias.getId());
@@ -51,17 +63,20 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
         docBuilder.append("Fecha", noticias.getFechaEditado());
         docBuilder.append("AutorId", noticias.getAutorId());
         docBuilder.append("Contenido", noticias.getContenido());
-        return docBuilder;
+        col.insertOne(docBuilder);
+        System.out.println("Inserto Noticia");
     }
+
     @Override
-    public Document createDBObjectUsers(Usuarios usuarios) {
+    public void createDBObjectUsers(Usuarios usuarios) {
         Document docBuilder = new Document();
 
         docBuilder.append("UsuarioId", usuarios.getUsuarioId());
         docBuilder.append("Nombre", usuarios.getNombre());
         docBuilder.append("Role", usuarios.getRole());
+        col2.insertOne(docBuilder);
+        System.out.println("Inserto Usuario");
 
-        return docBuilder;
     }
 
     @Override
