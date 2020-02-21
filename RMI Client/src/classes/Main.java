@@ -38,7 +38,11 @@ public class Main {
                         break;
 
                     case "3":
-                        service.updateNoticias();
+                        System.out.println("Ingrese id");
+                        int id = Integer.parseInt(myObj.nextLine().trim());
+                        System.out.println("Ingrese contenido");
+                        contenido = myObj.nextLine();
+                        service.updateNoticias(int id, String contenido);
                         break;
 
                     case "4":

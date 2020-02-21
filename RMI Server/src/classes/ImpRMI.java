@@ -32,15 +32,7 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
     /* (non-Javadoc)
      * @see classes.iRMI#sumar(int, int)
      */
-    @Override
-    public Usuarios createUsuarios(String nombre, int rol) throws RemoteException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Usuarios u = new Usuarios();
-        u.setNombre(nombre);
-        u.setRole(rol);
-        return u;
 
-    }
 
     @Override
     public Noticias createNoticias(String nombre, String titular, String contenido) throws RemoteException {
@@ -63,46 +55,39 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
         docBuilder.append("Titular", noticias.getTitular());
         docBuilder.append("Fecha", noticias.getFechaCreado());
         docBuilder.append("Fecha", noticias.getFechaEditado());
-        docBuilder.append("AutorId", noticias.getAutorId());
+        docBuilder.append("AutorId", noticias.getAutor());
         docBuilder.append("Contenido", noticias.getContenido());
         col.insertOne(docBuilder);
         System.out.println("Inserto Noticia");
     }
 
+
+
+
     @Override
-    public void createDBObjectUsers(Usuarios usuarios) {
-        Document docBuilder = new Document();
-
-        docBuilder.append("UsuarioId", usuarios.getUsuarioId());
-        docBuilder.append("Nombre", usuarios.getNombre());
-        docBuilder.append("Role", usuarios.getRole());
-        col2.insertOne(docBuilder);
-        System.out.println("Inserto Usuario");
-
+    public void updateNoticias(int id, String contenido) throws RemoteException {
+        Document document = new Document();
+        document.put("_id", id);
+        Document documentContenido = new Document();
+        documentContenido.put("Contenido", contenido);
+        col.updateOne(document, documentContenido);
     }
 
     @Override
-    public Noticias updateNoticias() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public Noticias find() {
-
-    }
-
-    @Override
-    public Noticias removeNoticias() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeNoticias(int id) throws RemoteException {
+        Document document = new Document();
+        document.put("_id", id);
+        col.deleteOne(document);
     }
 
     @Override
     public void readNoticias() throws RemoteException {
-        FindIterable <Document> cursor = col.find();
-        
-         for (Document doc : cursor) {
-             System.out.println(doc.getString("Contenido")); 
+        FindIterable<Document> cursor = col.find();
+
+        for (Document doc : cursor) {
+            System.out.println(doc.getString("Contenido"));
         }
-                
+
     }
 
 }
