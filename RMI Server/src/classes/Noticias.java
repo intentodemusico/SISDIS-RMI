@@ -20,12 +20,12 @@ public class Noticias {
     public Noticias(){
     
     }
-    public Noticias(int _id, String Nombre, String Titular, int AutorId, String Contenido) {
+    public Noticias(int _id, String Nombre, String Titular, String Autor, String Contenido) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         this._id = _id;
         this.Nombre = Nombre;
         this.Titular = Titular;
-        this.AutorId = AutorId;
+        this.Autor = Autor;
         this.Contenido = Contenido;
         setFechaCreado(timestamp);
         setFechaEditado(timestamp);
@@ -36,7 +36,7 @@ public class Noticias {
     private String Titular;
     private Timestamp FechaCreado;
     private Timestamp FechaEditado;
-    private int AutorId;
+    private String Autor;
     private String Contenido;
 
     public void setNombre(String Nombre) {
@@ -69,8 +69,8 @@ public class Noticias {
         return Titular;
     }
 
-    public int getAutorId() {
-        return AutorId;
+    public String getAutor() {
+        return Autor;
     }
 
     public String getContenido() {

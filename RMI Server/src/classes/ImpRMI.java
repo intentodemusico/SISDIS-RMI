@@ -63,7 +63,7 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
         docBuilder.append("Titular", noticias.getTitular());
         docBuilder.append("Fecha", noticias.getFechaCreado());
         docBuilder.append("Fecha", noticias.getFechaEditado());
-        docBuilder.append("AutorId", noticias.getAutorId());
+        docBuilder.append("AutorId", noticias.getAutor());
         docBuilder.append("Contenido", noticias.getContenido());
         col.insertOne(docBuilder);
         System.out.println("Inserto Noticia");
@@ -82,27 +82,29 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
     }
 
     @Override
-    public Noticias updateNoticias() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public Noticias find() {
-
+    public void updateNoticias(int id, String contenido) throws RemoteException {
+        Document document = new Document();
+        document.put("_id", id);
+        Document documentContenido = new Document();
+        documentContenido.put("Contenido", contenido);
+        col.updateOne(document, documentContenido);
     }
 
     @Override
-    public Noticias removeNoticias() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeNoticias(int id) throws RemoteException {
+        Document document = new Document();
+        document.put("_id", id);
+        col.deleteOne(document);
     }
 
     @Override
     public void readNoticias() throws RemoteException {
-        FindIterable <Document> cursor = col.find();
-        
-         for (Document doc : cursor) {
-             System.out.println(doc.getString("Contenido")); 
+        FindIterable<Document> cursor = col.find();
+
+        for (Document doc : cursor) {
+            System.out.println(doc.getString("Contenido"));
         }
-                
+
     }
 
 }
