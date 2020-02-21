@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 
 public interface iRMI extends Remote {
 
-	public int sumar(int a) throws RemoteException;
+	public Noticias createNoticias() throws RemoteException;
+        public Usuarios createUsuarios() throws RemoteException;
 
 }

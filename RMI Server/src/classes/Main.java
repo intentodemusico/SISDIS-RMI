@@ -7,6 +7,8 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.DBObject;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.WriteResult;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import static java.lang.String.format;
 
 import java.net.MalformedURLException;
@@ -17,6 +19,7 @@ import java.rmi.registry.LocateRegistry;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Set;
+import org.bson.Document;
 
 public class Main {
 
@@ -26,37 +29,27 @@ public class Main {
     public static void main(String[] args) throws UnknownHostException, ParseException {
 
         try {
+
             //Conexión base de datos 
-
-            
-  /*          
-MongoClientURI uri = new MongoClientURI(
-    "mongodb://Admin:<Informatica>@rmi-shard-00-00-p8iu2.mongodb.net:27017,rmi-shard-00-01-p8iu2.mongodb.net:27017,rmi-shard-00-02-p8iu2.mongodb.net:27017/test?ssl=true&replicaSet=RMI-shard-0&authSource=admin&retryWrites=true&w=majority");
-
-MongoClient mongoClient = new MongoClient(uri);
-MongoDatabase database = mongoClient.getDatabase("test");
-*/
-
- MongoClientURI uri = new MongoClientURI(
-    "mongodb+srv://Admin:Informatica@rmi-p8iu2.mongodb.net/test?retryWrites=true&w=majority");
-
-MongoClient mongoClient = new MongoClient(uri);
-DB database = mongoClient.getDB("RMI");
-
-  
-  /*
-            MongoClientURI uri = new MongoClientURI("mongodb://Admin:Informatica@rmi-shard-00-00-p8iu2.mongodb.net:27017,rmi-shard-00-01-p8iu2.mongodb.net:27017,rmi-shard-00-02-p8iu2.mongodb.net:27017/test?ssl=true&replicaSet=RMI-shard-0&authSource=admin&retryWrites=true&w=majority");
+            MongoClientURI uri = new MongoClientURI("mongodb+srv://Admin:Informatica@rmi-p8iu2.mongodb.net/test?retryWrites=true&w=majority");
             MongoClient mongoClient = new MongoClient(uri);
-            DB database = mongoClient.getDB("rmi");*/
-            DBCollection col = database.getCollection("Noticias");
-            Noticias noticias = createNoticias();
-            DBObject doc = createDBObject(noticias);
-            WriteResult result = col.insert(doc);
-            System.out.println(result.getUpsertedId());
-            System.out.println(result.getN());
-            System.out.println(result.isUpdateOfExisting());
-            //System.out.println(result.getLastConcern());
 
+            //Selección de DB
+            MongoDatabase database = mongoClient.getDatabase("RMI");
+            MongoCollection col = database.getCollection("Noticias");
+            MongoCollection col2 = database.getCollection("Usuarios");
+
+            //Agregar información Noticias
+            Noticias noticias = createNoticias();
+            col.insertOne(createDBObjectNotices(noticias));
+            System.out.println("Inserto Noticia");
+
+            //Agregar información Usuarios
+            Usuarios usuarios = createUsuarios();
+            col2.insertOne(createDBObjectUsers(usuarios));
+            System.out.println("Inserto Usuario");
+
+            //Servicio RMI
             iRMI service = new ImpRMI();
             LocateRegistry.createRegistry(1802);
             Naming.rebind("//127.0.0.1:1802/service", service);
@@ -84,8 +77,18 @@ DB database = mongoClient.getDB("RMI");
 
     }
 
-    private static DBObject createDBObject(Noticias noticias) {
-        BasicDBObjectBuilder docBuilder = BasicDBObjectBuilder.start();
+    private static Usuarios createUsuarios() throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Usuarios u = new Usuarios();
+        u.setUsuarioId(1);
+        u.setNombre("Oswaldo");
+        u.setRole(1);
+        return u;
+
+    }
+
+    private static Document createDBObjectNotices(Noticias noticias) {
+        Document docBuilder = new Document();
 
         docBuilder.append("_id", noticias.getId());
         docBuilder.append("Nombre", noticias.getNombre());
@@ -93,7 +96,17 @@ DB database = mongoClient.getDB("RMI");
         docBuilder.append("Fecha", noticias.getFecha());
         docBuilder.append("AutorId", noticias.getAutorId());
         docBuilder.append("Contenido", noticias.getContenido());
-        return docBuilder.get();
+        return docBuilder;
+    }
+
+    private static Document createDBObjectUsers(Usuarios usuarios) {
+        Document docBuilder = new Document();
+
+        docBuilder.append("UsuarioId", usuarios.getUsuarioId());
+        docBuilder.append("Nombre", usuarios.getNombre());
+        docBuilder.append("Role", usuarios.getRole());
+
+        return docBuilder;
     }
 
 }
