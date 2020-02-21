@@ -13,13 +13,14 @@ public class Usuarios {
     private int UsuarioId;
     private int Role;
     private String Nombre;
+    public Usuarios(){}
+    public Usuarios(int Role, String Nombre) {
+        this.Role = Role;
+        this.Nombre = Nombre;
+    }
 
     public int getUsuarioId() {
         return UsuarioId;
-    }
-
-    public void setUsuarioId(int UsuarioId) {
-        this.UsuarioId = UsuarioId;
     }
 
     public int getRole() {
