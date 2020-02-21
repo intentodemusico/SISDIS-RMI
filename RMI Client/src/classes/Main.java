@@ -28,19 +28,19 @@ public class Main {
                 opcion = myObj.nextLine();
                 switch (opcion) {
                     case "1":
-
+                        service.createNoticias();
                         break;
 
                     case "2":
-
+                        service.readNoticias();
                         break;
 
                     case "3":
-
+                        service.updateNoticias();
                         break;
 
                     case "4":
-
+                        service.removeNoticias();
                         break;
 
                     case "0":
