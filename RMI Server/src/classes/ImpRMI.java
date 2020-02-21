@@ -32,15 +32,7 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
     /* (non-Javadoc)
      * @see classes.iRMI#sumar(int, int)
      */
-    @Override
-    public Usuarios createUsuarios(String nombre, int rol) throws RemoteException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Usuarios u = new Usuarios();
-        u.setNombre(nombre);
-        u.setRole(rol);
-        return u;
 
-    }
 
     @Override
     public Noticias createNoticias(String nombre, String titular, String contenido) throws RemoteException {
@@ -69,17 +61,8 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
         System.out.println("Inserto Noticia");
     }
 
-    @Override
-    public void createDBObjectUsers(Usuarios usuarios) {
-        Document docBuilder = new Document();
 
-        docBuilder.append("UsuarioId", usuarios.getUsuarioId());
-        docBuilder.append("Nombre", usuarios.getNombre());
-        docBuilder.append("Role", usuarios.getRole());
-        col2.insertOne(docBuilder);
-        System.out.println("Inserto Usuario");
 
-    }
 
     @Override
     public void updateNoticias(int id, String contenido) throws RemoteException {

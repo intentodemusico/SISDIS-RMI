@@ -10,9 +10,10 @@ public interface iRMI extends Remote {
 
     public void createDBObjectNotices(Noticias noticias);
 
-    public void createDBObjectUsers(Usuarios usuarios); 
-    public Noticias updateNoticias(int id) throws RemoteException;
+    public void updateNoticias(int id, String contenido) throws RemoteException;
+
     public void removeNoticias(int id) throws RemoteException;
+
     public void readNoticias() throws RemoteException;
 
 }
