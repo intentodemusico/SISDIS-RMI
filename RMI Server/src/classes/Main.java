@@ -63,29 +63,7 @@ public class Main {
 
     }
 
-    private static Noticias createNoticias() throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Noticias u = new Noticias();
-        u.setId(1);
-        u.setNombre("Bomba");
-        u.setTitular("Bomba en la UPB");
-        u.setFecha(format.parse("2009-12-31"));
-        u.setAutorId(1);
-        u.setContenido("Hubo una bomba, muriendo x personas");
-
-        return u;
-
-    }
-
-    private static Usuarios createUsuarios() throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Usuarios u = new Usuarios();
-        u.setUsuarioId(1);
-        u.setNombre("Oswaldo");
-        u.setRole(1);
-        return u;
-
-    }
+ 
 
     
 
