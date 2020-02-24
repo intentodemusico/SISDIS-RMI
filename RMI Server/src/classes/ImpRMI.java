@@ -36,12 +36,12 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
 
 
     @Override
-    public Noticias createNoticias(String nombre, String titular, String contenido) throws RemoteException {
+    public Noticias createNoticias(String nombre, String titular, String contenido, String autor) throws RemoteException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Noticias u = new Noticias();
-        //u.setId(1);
-        
+        u.setId((int)col.count());
         u.setNombre(nombre);
+        u.setAutor(autor);
         u.setTitular(titular);
         u.setContenido(contenido);
         return u;
@@ -51,13 +51,13 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
     @Override
     public void createDBObjectNotices(Noticias noticias) throws RemoteException {
         Document docBuilder = new Document();
-
-        docBuilder.append("_id", noticias.getId());
+            
+        docBuilder.append("id", noticias.getId());
         docBuilder.append("Nombre", noticias.getNombre());
         docBuilder.append("Titular", noticias.getTitular());
-        docBuilder.append("Fecha", noticias.getFechaCreado());
-        docBuilder.append("Fecha", noticias.getFechaEditado());
-        docBuilder.append("AutorId", noticias.getAutor());
+        docBuilder.append("FechaCreado", noticias.getFechaCreado());
+        docBuilder.append("FechaEditado", noticias.getFechaEditado());
+        docBuilder.append("Autor", noticias.getAutor());
         docBuilder.append("Contenido", noticias.getContenido());
         col.insertOne(docBuilder);
         System.out.println("Inserto Noticia");
@@ -89,7 +89,7 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
         FindIterable<Document> cursor = col.find();
 
         for (Document doc : cursor) {
-            temp+="\n"+doc.getString("Titular")+" Id:"+doc.getString("_id")+"\n"+doc.getString("Contenido");
+            temp+="\n"+doc.getString("Titular")+" Id:"+doc.getString("id")+"\n"+doc.getString("Contenido");
             System.out.println(doc.getString("Contenido"));
         }
         return temp;
