@@ -16,31 +16,45 @@ import java.util.Date;
  * @author oswal
  */
 public class Noticias {
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
 
-    public Noticias(int _id, String Nombre, String Titular, int AutorId, String Contenido) {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        this._id = _id;
-        this.Nombre = Nombre;
-        this.Titular = Titular;
-        this.AutorId = AutorId;
-        this.Contenido = Contenido;
-        setFechaCreado(timestamp);
-        setFechaEditado(timestamp);
-    }
-    
-    private int _id;
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+    private int id;
     private String Nombre;
     private String Titular;
     private Timestamp FechaCreado;
     private Timestamp FechaEditado;
-    private int AutorId;
+    private String Autor;
     private String Contenido;
+
+    public Noticias() {
+
+    }
+
+    public Noticias(int id, String Nombre, String Titular, String Autor, String Contenido) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        this.id = id;
+        this.Nombre = Nombre;
+        this.Titular = Titular;
+        this.Autor = Autor;
+        this.Contenido = Contenido;
+        setFechaCreado(timestamp);
+        setFechaEditado(timestamp);
+    }
 
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         setFechaEditado(timestamp);
+        setFechaCreado(timestamp);
+
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAutor(String Autor) {
+        this.Autor = Autor;
     }
 
     public void setTitular(String Titular) {
@@ -56,7 +70,7 @@ public class Noticias {
     }
 
     public int getId() {
-        return _id;
+        return id;
     }
 
     public String getNombre() {
@@ -67,8 +81,8 @@ public class Noticias {
         return Titular;
     }
 
-    public int getAutorId() {
-        return AutorId;
+    public String getAutor() {
+        return Autor;
     }
 
     public String getContenido() {
@@ -79,7 +93,7 @@ public class Noticias {
         return FechaCreado;
     }
 
-    private void setFechaCreado(Timestamp FechaCreado) {
+    public void setFechaCreado(Timestamp FechaCreado) {
         this.FechaCreado = FechaCreado;
     }
 
