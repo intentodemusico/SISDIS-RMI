@@ -62,7 +62,7 @@ public class Main {
                         System.out.println("Opción inválida");
                         break;
                 }
-            } while (opcion != "0");
+            } while (!opcion.equals("0"));
         } catch (MalformedURLException | RemoteException | NotBoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
