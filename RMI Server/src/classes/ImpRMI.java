@@ -21,7 +21,7 @@ import org.bson.conversions.Bson;
 public class ImpRMI extends UnicastRemoteObject implements iRMI {
 
     protected ImpRMI() throws RemoteException {
-        
+
     }
     MongoClientURI uri = new MongoClientURI("mongodb+srv://Admin:Informatica@rmi-p8iu2.mongodb.net/test?retryWrites=true&w=majority");
     MongoClient mongoClient = new MongoClient(uri);
@@ -36,13 +36,11 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
     /* (non-Javadoc)
      * @see classes.iRMI#sumar(int, int)
      */
-
-
     @Override
     public Noticias createNoticias(String nombre, String titular, String contenido, String autor) throws RemoteException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Noticias u = new Noticias();
-        u.setId((int)col.count()+1);
+        u.setId((int) col.count() + 1);
         u.setNombre(nombre);
         u.setAutor(autor);
         u.setTitular(titular);
@@ -54,7 +52,7 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
     @Override
     public void createDBObjectNotices(Noticias noticias) throws RemoteException {
         Document docBuilder = new Document();
-          System.out.println("Entrò");      
+        System.out.println("Entrò");
         docBuilder.append("id", noticias.getId());
         docBuilder.append("Nombre", noticias.getNombre());
         docBuilder.append("Titular", noticias.getTitular());
@@ -66,33 +64,47 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
         System.out.println("Inserto Noticia");
     }
 
-
-
-
     @Override
-    public void updateNoticias(int id, String contenido) throws RemoteException {
+    public void updateNoticias(String autor, int id, String contenido) throws RemoteException {
 
         Bson filter = eq("id", id);
         Bson updateOperation = set("Contenido", contenido);
-        col.updateOne(filter, updateOperation);
+        FindIterable<Document> cursor = col.find(filter);
+        for (Document doc : cursor) {
+            if (doc.getString("Autor").equals(autor) || doc.getString("Autor").equals("Admin")) {
+                col.updateOne(filter, updateOperation);
+            }
+        }
+
     }
 
     @Override
-    public void removeNoticias(int id) throws RemoteException {
+    public void removeNoticias(String autor, int id) throws RemoteException {
         Document document = new Document();
         document.put("id", id);
+<<<<<<< HEAD
         
         col.deleteOne(document);
+=======
+        Bson filter = eq("id", id);
+        FindIterable<Document> cursor = col.find(filter);
+        for (Document doc : cursor) {
+            if (doc.getString("Autor").equals(autor) || doc.getString("Autor").equals("Admin") ) {
+                col.deleteOne(document);
+            }
+        }
+
+>>>>>>> fd37839d78cae537e9cfef7c13ad423e1f3cf195
     }
 
     @Override
     public String readNoticias() throws RemoteException {
         System.out.println("Leyendo Noticias");
-        String temp="";
+        String temp = "";
         FindIterable<Document> cursor = col.find();
 
         for (Document doc : cursor) {
-            temp+="\n"+doc.getString("Titular")+"\n"+doc.getString("Contenido");
+            temp += "\n" + doc.getString("Titular") + "\n" + doc.getString("Contenido");
             System.out.println(doc.getString("Contenido"));
         }
         return temp;
