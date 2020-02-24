@@ -6,6 +6,8 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.set;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Timestamp;
@@ -14,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 public class ImpRMI extends UnicastRemoteObject implements iRMI {
 
@@ -68,11 +71,10 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
 
     @Override
     public void updateNoticias(int id, String contenido) throws RemoteException {
-        Document document = new Document();
-        document.put("id", id);
-        Document documentContenido = new Document();
-        documentContenido.put("Contenido", contenido);
-        col.updateOne(document, documentContenido);
+
+        Bson filter = eq("id", id);
+        Bson updateOperation = set("Contenido", contenido);
+        col.updateOne(filter, updateOperation);
     }
 
     @Override
