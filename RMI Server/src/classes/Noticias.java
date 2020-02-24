@@ -15,6 +15,13 @@ import java.text.SimpleDateFormat;
 public class Noticias {
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+    private int id;
+    private String Nombre;
+    private String Titular;
+    private Timestamp FechaCreado;
+    private Timestamp FechaEditado;
+    private String Autor;
+    private String Contenido;
 
     public Noticias() {
 
@@ -31,33 +38,20 @@ public class Noticias {
         setFechaEditado(timestamp);
     }
 
-    public void setAutor(String Autor) {
-        this.Autor = Autor;
-    }
-
-    private int id;
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    private String Nombre;
-    private String Titular;
-    private Timestamp FechaCreado;
-
-    public static SimpleDateFormat getSdf() {
-        return sdf;
-    }
-    private Timestamp FechaEditado;
-    private String Autor;
-    private String Contenido;
-
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         setFechaEditado(timestamp);
         setFechaCreado(timestamp);
-        
 
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAutor(String Autor) {
+        this.Autor = Autor;
     }
 
     public void setTitular(String Titular) {

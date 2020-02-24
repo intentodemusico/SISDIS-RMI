@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner myObj = new Scanner(System.in);
         try {
-            iRMI service = (iRMI) Naming.lookup("rmi://10.152.164.47:1802/service");
+            iRMI service = (iRMI) Naming.lookup("rmi://127.0.0.1:1802/service");
             System.out.println("conecto");
 
             System.out.println("elija nombre de usuario (0/1) ");
