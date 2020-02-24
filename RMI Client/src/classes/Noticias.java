@@ -5,6 +5,7 @@
  */
 package classes;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -15,7 +16,7 @@ import java.util.Date;
  *  
  * @author oswal
  */
-public class Noticias {
+public class Noticias implements Serializable {
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
     private int id;

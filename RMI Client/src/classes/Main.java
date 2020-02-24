@@ -34,7 +34,8 @@ public class Main {
                         contenido = myObj.nextLine();
                         System.out.println("Ingrese nombre");
                         nombre = myObj.nextLine();
-                        service.createDBObjectNotices(service.createNoticias(nombre, titular, contenido, nombreUsuario));
+                        Noticias temp=service.createNoticias(nombre, titular, contenido, nombreUsuario);
+                        service.createDBObjectNotices(temp);
                         break;
 
                     case "2":
