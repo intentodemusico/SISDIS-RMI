@@ -39,7 +39,7 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
     public Noticias createNoticias(String nombre, String titular, String contenido, String autor) throws RemoteException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Noticias u = new Noticias();
-        u.setId((int)col.count());
+        u.setId((int)col.count()+1);
         u.setNombre(nombre);
         u.setAutor(autor);
         u.setTitular(titular);
