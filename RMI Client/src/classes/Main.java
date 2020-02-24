@@ -29,14 +29,14 @@ public class Main {
                 switch (opcion) {
                     case "1":
                         System.out.println("Ingrese titular");
-                        titular = myObj.nextLine();
+                         titular = myObj.nextLine();
                         System.out.println("Ingrese contenido");
-                        contenido = myObj.nextLine();
+                         contenido = myObj.nextLine();
                         service.createNoticias(nombreUsuario, titular, contenido);
                         break;
 
                     case "2":
-                        System.out.println(service.readNoticias());
+                        service.readNoticias();
                         break;
 
                     case "3":
@@ -44,12 +44,12 @@ public class Main {
                         id = Integer.parseInt(myObj.nextLine().trim());
                         System.out.println("Ingrese contenido");
                         contenido = myObj.nextLine();
-                        service.updateNoticias(id, contenido);
+                        service.updateNoticias(id,  contenido);
                         break;
 
                     case "4":
-                        System.out.println("Ingrese id");
-                        id = Integer.parseInt(myObj.nextLine().trim());
+                         System.out.println("Ingrese id");
+                         id = Integer.parseInt(myObj.nextLine().trim());
                         service.removeNoticias(id);
                         break;
 
@@ -62,7 +62,7 @@ public class Main {
                         System.out.println("Opción inválida");
                         break;
                 }
-            } while (!opcion.equals("0"));
+            } while (opcion != "0");
         } catch (MalformedURLException | RemoteException | NotBoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

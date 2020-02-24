@@ -14,6 +14,6 @@ public interface iRMI extends Remote {
 
     public void removeNoticias(int id) throws RemoteException ;
 
-    public String readNoticias() throws RemoteException;
+    public void readNoticias() throws RemoteException;
 
 }
