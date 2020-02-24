@@ -5,24 +5,24 @@
  */
 package classes;
 
-import java.util.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
 
 /**
- *  
+ *
  * @author oswal
  */
 public class Noticias {
+
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
-    public Noticias(){
-    
+
+    public Noticias() {
+
     }
-    public Noticias(int _id, String Nombre, String Titular, String Autor, String Contenido) {
+
+    public Noticias(int id, String Nombre, String Titular, String Autor, String Contenido) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        this._id = _id;
+        this.id = id;
         this.Nombre = Nombre;
         this.Titular = Titular;
         this.Autor = Autor;
@@ -30,11 +30,23 @@ public class Noticias {
         setFechaCreado(timestamp);
         setFechaEditado(timestamp);
     }
-    
-    private int _id;
+
+    public void setAutor(String Autor) {
+        this.Autor = Autor;
+    }
+
+    private int id;
+
+    public void setId(int id) {
+        this.id = id;
+    }
     private String Nombre;
     private String Titular;
     private Timestamp FechaCreado;
+
+    public static SimpleDateFormat getSdf() {
+        return sdf;
+    }
     private Timestamp FechaEditado;
     private String Autor;
     private String Contenido;
@@ -43,6 +55,9 @@ public class Noticias {
         this.Nombre = Nombre;
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         setFechaEditado(timestamp);
+        setFechaCreado(timestamp);
+        
+
     }
 
     public void setTitular(String Titular) {
@@ -58,7 +73,7 @@ public class Noticias {
     }
 
     public int getId() {
-        return _id;
+        return id;
     }
 
     public String getNombre() {

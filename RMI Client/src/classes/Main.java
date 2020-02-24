@@ -25,14 +25,16 @@ public class Main {
                 System.out.println("1. Crear \n2. Leer\n3. Actualizar\n4. Eliminar\n0. Salir");
                 opcion = myObj.nextLine();
                 int id;
-                String titular, contenido;
+                String titular, contenido, nombre;
                 switch (opcion) {
                     case "1":
                         System.out.println("Ingrese titular");
                         titular = myObj.nextLine();
                         System.out.println("Ingrese contenido");
                         contenido = myObj.nextLine();
-                        service.createNoticias(nombreUsuario, titular, contenido);
+                        System.out.println("Ingrese nombre");
+                        nombre = myObj.nextLine();
+                        service.createNoticias(nombre, titular, contenido, nombreUsuario);
                         break;
 
                     case "2":
