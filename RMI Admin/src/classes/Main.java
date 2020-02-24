@@ -17,8 +17,6 @@ public class Main {
             iRMI service = (iRMI) Naming.lookup("rmi://10.152.164.30:1802/service");
             System.out.println("conecto");
 
-            System.out.println("elija nombre de usuario (0/1) ");
-            String nombreUsuario = myObj.nextLine();
             String opcion = "-1";
             do {
                 System.out.println("Escoja su opción");
