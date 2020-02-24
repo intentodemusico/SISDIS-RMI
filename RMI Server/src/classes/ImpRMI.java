@@ -82,12 +82,16 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
     }
 
     @Override
-    public void readNoticias() throws RemoteException {
+    public String readNoticias() throws RemoteException {
+        System.out.println("Leyendo Noticias");
+        String temp="";
         FindIterable<Document> cursor = col.find();
 
         for (Document doc : cursor) {
+            temp+="\n"+doc.getString("Titular")+" Id:"+doc.getString("_id")+"\n"+doc.getString("Contenido");
             System.out.println(doc.getString("Contenido"));
         }
+        return temp;
 
     }
 
