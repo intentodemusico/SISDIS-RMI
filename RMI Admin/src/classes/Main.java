@@ -16,8 +16,6 @@ public class Main {
         try {
             iRMI service = (iRMI) Naming.lookup("rmi://127.0.0.1:1802/service");
             System.out.println("conecto");
-            System.out.println("elija tipo de usuario (0/1) ");
-            String tipoUsuario = myObj.nextLine();
 
             System.out.println("elija nombre de usuario (0/1) ");
             String nombreUsuario = myObj.nextLine();
@@ -26,17 +24,33 @@ public class Main {
                 System.out.println("Escoja su opción");
                 System.out.println("1. Crear \n2. Leer\n3. Actualizar\n4. Eliminar\n0. Salir");
                 opcion = myObj.nextLine();
+                int id;
+                String titular, contenido;
                 switch (opcion) {
                     case "1":
-                        service.readNoticias();
+                        System.out.println("Ingrese titular");
+                        titular = myObj.nextLine();
+                        System.out.println("Ingrese contenido");
+                        contenido = myObj.nextLine();
+                        service.createNoticias(nombreUsuario, titular, contenido);
                         break;
 
                     case "2":
-                        service.updateNoticias();
+                        System.out.println(service.readNoticias());
                         break;
 
                     case "3":
-                        service.removeNoticias();
+                        System.out.println("Ingrese id");
+                        id = Integer.parseInt(myObj.nextLine().trim());
+                        System.out.println("Ingrese contenido");
+                        contenido = myObj.nextLine();
+                        service.updateNoticias(id, contenido);
+                        break;
+
+                    case "4":
+                        System.out.println("Ingrese id");
+                        id = Integer.parseInt(myObj.nextLine().trim());
+                        service.removeNoticias(id);
                         break;
 
                     case "0":
@@ -48,7 +62,7 @@ public class Main {
                         System.out.println("Opción inválida");
                         break;
                 }
-            } while (opcion != "0");
+            } while (!opcion.equals("0"));
         } catch (MalformedURLException | RemoteException | NotBoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
