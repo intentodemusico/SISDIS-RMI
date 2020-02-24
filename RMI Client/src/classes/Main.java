@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner myObj = new Scanner(System.in);
         try {
-            iRMI service = (iRMI) Naming.lookup("rmi://10.152.164.47:1802/service");
+            iRMI service = (iRMI) Naming.lookup("rmi://10.152.164.38:1802/service");
             System.out.println("conecto");
 
             System.out.println("elija nombre de usuario (0/1) ");
@@ -47,13 +47,13 @@ public class Main {
                         id = Integer.parseInt(myObj.nextLine().trim());
                         System.out.println("Ingrese contenido");
                         contenido = myObj.nextLine();
-                        service.updateNoticias(id, contenido);
+                        service.updateNoticias(nombreUsuario,id, contenido);
                         break;
 
                     case "4":
                         System.out.println("Ingrese id");
                         id = Integer.parseInt(myObj.nextLine().trim());
-                        service.removeNoticias(id);
+                        service.removeNoticias(nombreUsuario,id);
                         break;
 
                     case "0":

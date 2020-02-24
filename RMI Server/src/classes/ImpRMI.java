@@ -81,6 +81,7 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
     public void removeNoticias(int id) throws RemoteException {
         Document document = new Document();
         document.put("id", id);
+        
         col.deleteOne(document);
     }
 
