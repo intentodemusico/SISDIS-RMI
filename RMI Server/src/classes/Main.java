@@ -32,7 +32,7 @@ public class Main {
             //Servicio RMI
             iRMI service = new ImpRMI();
             LocateRegistry.createRegistry(1802);
-            Naming.rebind("//10.152.164.47:1802/service", service);
+            Naming.rebind("//127.0.0.1:1802/service", service);
         } catch (RemoteException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
