@@ -51,7 +51,7 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
     @Override
     public void createDBObjectNotices(Noticias noticias) throws RemoteException {
         Document docBuilder = new Document();
-            
+          System.out.println("Entrò");      
         docBuilder.append("id", noticias.getId());
         docBuilder.append("Nombre", noticias.getNombre());
         docBuilder.append("Titular", noticias.getTitular());
@@ -69,7 +69,7 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
     @Override
     public void updateNoticias(int id, String contenido) throws RemoteException {
         Document document = new Document();
-        document.put("_id", id);
+        document.put("id", id);
         Document documentContenido = new Document();
         documentContenido.put("Contenido", contenido);
         col.updateOne(document, documentContenido);
@@ -78,7 +78,7 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
     @Override
     public void removeNoticias(int id) throws RemoteException {
         Document document = new Document();
-        document.put("_id", id);
+        document.put("id", id);
         col.deleteOne(document);
     }
 
@@ -89,7 +89,7 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
         FindIterable<Document> cursor = col.find();
 
         for (Document doc : cursor) {
-            temp+="\n"+doc.getString("Titular")+" Id:"+doc.getString("id")+"\n"+doc.getString("Contenido");
+            temp+="\n"+doc.getString("Titular")+"\n"+doc.getString("Contenido");
             System.out.println(doc.getString("Contenido"));
         }
         return temp;
