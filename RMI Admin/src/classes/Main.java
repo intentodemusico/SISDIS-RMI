@@ -14,29 +14,35 @@ public class Main {
     public static void main(String[] args) {
         Scanner myObj = new Scanner(System.in);
         try {
-            iRMI service = (iRMI) Naming.lookup("rmi://127.0.0.1:1802/service");
+            iRMI service = (iRMI) Naming.lookup("rmi://10.152.164.30:1802/service");
             System.out.println("conecto");
-            System.out.println("elija tipo de usuario (0/1) ");
-            String tipoUsuario = myObj.nextLine();
 
             System.out.println("elija nombre de usuario (0/1) ");
             String nombreUsuario = myObj.nextLine();
             String opcion = "-1";
             do {
                 System.out.println("Escoja su opción");
-                System.out.println("1. Crear \n2. Leer\n3. Actualizar\n4. Eliminar\n0. Salir");
+                System.out.println("1. Leer\n2. Actualizar\n3. Eliminar\n0. Salir");
                 opcion = myObj.nextLine();
-                switch (opcion) {
+                int id;
+                String titular, contenido;
+                switch (opcion) {  
                     case "1":
-                        service.readNoticias();
+                        System.out.println(service.readNoticias());
                         break;
 
                     case "2":
-                        service.updateNoticias();
+                        System.out.println("Ingrese id");
+                        id = Integer.parseInt(myObj.nextLine().trim());
+                        System.out.println("Ingrese contenido");
+                        contenido = myObj.nextLine();
+                        service.updateNoticias(id, contenido);
                         break;
 
                     case "3":
-                        service.removeNoticias();
+                        System.out.println("Ingrese id");
+                        id = Integer.parseInt(myObj.nextLine().trim());
+                        service.removeNoticias(id);
                         break;
 
                     case "0":
@@ -48,7 +54,7 @@ public class Main {
                         System.out.println("Opción inválida");
                         break;
                 }
-            } while (opcion != "0");
+            } while (!opcion.equals("0"));
         } catch (MalformedURLException | RemoteException | NotBoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
