@@ -17,8 +17,8 @@ import org.bson.Document;
 
 public class ImpRMI extends UnicastRemoteObject implements iRMI {
 
-    protected ImpRMI() throws RemoteException {
-        
+    
+    public ImpRMI() throws RemoteException {
     }
     MongoClientURI uri = new MongoClientURI("mongodb+srv://Admin:Informatica@rmi-p8iu2.mongodb.net/test?retryWrites=true&w=majority");
     MongoClient mongoClient = new MongoClient(uri);
@@ -40,7 +40,6 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Noticias u = new Noticias();
         //u.setId(1);
-        
         u.setNombre(nombre);
         u.setTitular(titular);
         u.setContenido(contenido);
@@ -49,7 +48,7 @@ public class ImpRMI extends UnicastRemoteObject implements iRMI {
     }
 
     @Override
-    public void createDBObjectNotices(Noticias noticias) throws RemoteException {
+    public void createDBObjectNotices(Noticias noticias) {
         Document docBuilder = new Document();
 
         docBuilder.append("_id", noticias.getId());
