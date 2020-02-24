@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner myObj = new Scanner(System.in);
         try {
-            iRMI service = (iRMI) Naming.lookup("rmi://127.0.0.1:1802/service");
+            iRMI service = (iRMI) Naming.lookup("rmi://10.152.164.30:1802/service");
             System.out.println("conecto");
 
             System.out.println("elija nombre de usuario (0/1) ");
@@ -22,24 +22,16 @@ public class Main {
             String opcion = "-1";
             do {
                 System.out.println("Escoja su opción");
-                System.out.println("1. Crear \n2. Leer\n3. Actualizar\n4. Eliminar\n0. Salir");
+                System.out.println("1. Leer\n2. Actualizar\n3. Eliminar\n0. Salir");
                 opcion = myObj.nextLine();
                 int id;
                 String titular, contenido;
-                switch (opcion) {
+                switch (opcion) {  
                     case "1":
-                        System.out.println("Ingrese titular");
-                        titular = myObj.nextLine();
-                        System.out.println("Ingrese contenido");
-                        contenido = myObj.nextLine();
-                        service.createNoticias(nombreUsuario, titular, contenido);
-                        break;
-
-                    case "2":
                         System.out.println(service.readNoticias());
                         break;
 
-                    case "3":
+                    case "2":
                         System.out.println("Ingrese id");
                         id = Integer.parseInt(myObj.nextLine().trim());
                         System.out.println("Ingrese contenido");
@@ -47,7 +39,7 @@ public class Main {
                         service.updateNoticias(id, contenido);
                         break;
 
-                    case "4":
+                    case "3":
                         System.out.println("Ingrese id");
                         id = Integer.parseInt(myObj.nextLine().trim());
                         service.removeNoticias(id);
